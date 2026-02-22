@@ -66,8 +66,8 @@
 
             // Check if user already exists
             const users = JSON.parse(localStorage.getItem('users')) || [];
-            if (users.some(user => user.email === email)) {
-                alert('Email already registered. Please login or use a different email.');
+            if (users.some(user => user.fullname === fullname)) {
+                alert('Full name already registered. Please use a different name.');
                 return;
             }
 
