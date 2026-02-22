@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechHaven - Premium Electronics</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1 class="logo">TechHaven.</h1>
+            <div class="header-right">
+                <div class="cart-icon" onclick="toggleCart()">
+                    🛒 <span id="cart-count">0</span>
+                </div>
+                <div class="user-info">
+                    <span id="user-name"></span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Upgrade Your Tech Game</h2>
+            <p>Discover the latest gadgets and accessories at unbeatable prices.</p>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <main class="container">
+        <h2 class="section-title">Latest Products</h2>
+        <div id="product-list" class="product-grid">
+            <!-- Products will be inserted here by JS -->
+        </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-btn" onclick="toggleCart()">×</button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <!-- Cart items will go here -->
+            <p class="empty-cart-msg">Your cart is empty.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="total">Total: ₹<span id="cart-total">0</span></div>
+            <button id="checkout-btn" class="btn btn-primary" onclick="openPaymentModal()" disabled>Pay Now</button>
+        </div>
+    </div>
+    <div id="cart-overlay" class="overlay" onclick="toggleCart()"></div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Secure Payment</h3>
+                <button class="close-btn" onclick="closePaymentModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Scan QR Code to Pay</p>
+                <div class="qr-placeholder">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=shop@upi&pn=TechHaven&am=0"
+                        alt="Payment QR Code" id="payment-qr">
+                </div>
+                <p class="amount-display">Amount to Pay: <strong>₹<span id="modal-total">0</span></strong></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closePaymentModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="processPayment()">Confirm Payment</button>
+            </div>
+        </div>
+    </div>
+    <div id="payment-overlay" class="overlay" onclick="closePaymentModal()"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // Check if user is logged in on page load
+        window.addEventListener('load', function() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (!loggedInUser) {
+                alert('Please login first');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Display user name
+            const user = JSON.parse(loggedInUser);
+            document.getElementById('user-name').textContent = `Hello, ${user.fullname}`;
+        });
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('loggedInUser');
+            alert('Logged out successfully');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+
+</html>
