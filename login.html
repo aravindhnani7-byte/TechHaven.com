@@ -21,8 +21,8 @@
             
             <form id="login-form">
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="email@example.com" required>
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
                 </div>
 
                 <div class="form-group">
@@ -43,12 +43,12 @@
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const email = document.getElementById('email').value.trim();
+            const fullname = document.getElementById('fullname').value.trim();
             const password = document.getElementById('password').value;
 
             // Validation
-            if (!email || !password) {
-                alert('Please enter both email and password');
+            if (!fullname || !password) {
+                alert('Please enter both full name and password');
                 return;
             }
 
@@ -56,7 +56,7 @@
             const users = JSON.parse(localStorage.getItem('users')) || [];
 
             // Check if user exists and password matches
-            const user = users.find(u => u.email === email && u.password === password);
+            const user = users.find(u => u.fullname === fullname && u.password === password);
 
             if (user) {
                 alert('Login successful!');
